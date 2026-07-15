@@ -21,13 +21,13 @@ In-context-Pseudocode/
 
 ## Directory Description
 
-### `dataset`
+### `dataset/`
 
 Stores the datasets used for code-generation experiments.
 
 The datasets are loaded during inference and evaluation. The specific dataset format should be consistent with the data-loading logic implemented in the project.
 
-### `eval`
+### `eval/`
 
 Contains the main scripts for code generation and evaluation.
 
