@@ -1,51 +1,73 @@
 # In-context Pseudocode
 
-Official implementation and evaluation code for **In-context Pseudocode**, a project exploring the use of pseudocode-enhanced prompts for in-context learning and natural language processing tasks.
+This repository contains the implementation of an in-context pseudocode prompting framework for code generation.
 
-## Overview
-
-This repository contains scripts for constructing pseudocode-based prompts and evaluating language models under in-context learning settings.
-
-The main components include:
-
-* Prompt construction using natural language and pseudocode demonstrations
-* Model inference
-* Output processing
-* Evaluation utilities
-* Reproducible experiment configurations
+The project uses prompt templates to construct model inputs, generates code through an inference script, and evaluates the generated programs based on their execution pass rate.
 
 ## Repository Structure
 
 ```text
 In-context-Pseudocode/
+├── dataset/
 ├── eval/
-│   ├── inference.py          # Main inference script
-│   ├── prompt_template.py    # Prompt and pseudocode templates
-│   └── utils.py              # Utility functions
-├── README.md
-└── requirements.txt          # Python dependencies, if provided
+│   ├── inference.py
+│   ├── evaluate.py
+│   ├── prompt_template.py
+│   └── utils.py
+├── metrics/
+├── result/
+└── README.md
 ```
 
-The repository structure may be updated as additional datasets, models, and evaluation scripts are released.
+## Directory Description
 
-## Requirements
+### `dataset/`
 
-The code is intended to run with Python 3.9 or later.
+Stores the datasets used for code-generation experiments.
 
-We recommend creating an isolated Conda environment:
+The datasets are loaded during inference and evaluation. The specific dataset format should be consistent with the data-loading logic implemented in the project.
 
-```bash
-conda create -n pseudocode python=3.9
-conda activate pseudocode
+### `eval/`
+
+Contains the main scripts for code generation and evaluation.
+
+- `inference.py`  
+  Runs model inference and generates code predictions.
+
+- `evaluate.py`  
+  Evaluates the generated code and calculates the execution pass rate.
+
+- `prompt_template.py`  
+  Loads and manages the prompt templates used for code generation.
+
+- `utils.py`  
+  Contains shared utility functions used by the inference and evaluation scripts.
+
+### `metrics/`
+
+Stores evaluation-related scripts, metric implementations, or auxiliary files used to calculate code-generation performance.
+
+### `result/`
+
+Stores generated code, prediction results, and evaluation outputs.
+
+## Workflow
+
+The overall experimental workflow is:
+
+```text
+Dataset preparation
+        ↓
+Prompt template loading
+        ↓
+Code generation with inference.py
+        ↓
+Generated results
+        ↓
+Code evaluation with evaluate.py
+        ↓
+Execution pass rate
 ```
-
-Install the required packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-If `requirements.txt` is not included, install the dependencies required by the imports in the source files.
 
 ## Usage
 
@@ -56,71 +78,96 @@ git clone https://github.com/XD-BDIV-NLP/In-context-Pseudocode.git
 cd In-context-Pseudocode
 ```
 
-### 2. Check the available arguments
+### 2. Prepare the dataset
 
-```bash
-python eval/inference.py --help
+Place the required dataset files in the `dataset/` directory.
+
+```text
+dataset/
+└── your_dataset_files
 ```
 
-### 3. Run inference
+The dataset format and file paths should match the configuration or data-loading logic used in the source code.
 
-```bash
-python eval/inference.py
-```
+### 3. Configure the prompt template
 
-Model paths, dataset paths, prompt settings, output directories, and other experiment parameters should be configured according to the arguments defined in `eval/inference.py`.
-
-## Prompt Templates
-
-Prompt templates and pseudocode-based demonstrations are defined in:
+Prompt templates are defined or loaded in:
 
 ```text
 eval/prompt_template.py
 ```
 
-This file can be modified to evaluate different prompting strategies, demonstration formats, and task instructions.
+Modify or select the appropriate template before running code generation.
 
-## Evaluation
+### 4. Generate code
 
-Utility functions for data loading, output processing, and evaluation are provided in:
+Run the inference script from the project root directory:
+
+```bash
+python eval/inference.py
+```
+
+The script generates code predictions based on the selected dataset and prompt template.
+
+Generated outputs should be saved in the `result/` directory or in the output path specified in the script.
+
+### 5. Evaluate generated code
+
+After code generation is complete, run:
+
+```bash
+python eval/evaluate.py
+```
+
+The evaluation script executes or verifies the generated programs and calculates their pass rate.
+
+Make sure that the prediction path, test data path, and evaluation settings in `evaluate.py` correspond to the generated results.
+
+## Evaluation Metric
+
+The main evaluation metric is the code execution pass rate.
+
+It measures the proportion of generated programs that successfully pass the corresponding test cases:
 
 ```text
-eval/utils.py
+Pass Rate = Number of Passed Programs / Total Number of Evaluated Programs
 ```
 
-Generated predictions and evaluation results should be stored in a separate output directory to avoid committing large experiment files to the repository.
+A generated program is considered correct when it passes the required test cases under the evaluation settings.
 
-## Reproducibility
+## Output
 
-For reproducible experiments, please record:
+The `result/` directory is used to store experiment outputs, which may include:
 
-* Model name and version
-* Dataset name and version
-* Prompt template
-* Number of in-context demonstrations
-* Random seed
-* Decoding parameters
-* Software and hardware environment
+- Generated code
+- Model predictions
+- Execution results
+- Evaluation logs
+- Pass-rate statistics
 
-## Citation
+An example output structure is:
 
-If you use this repository in your research, please cite the corresponding paper:
-
-```bibtex
-@article{incontextpseudocode,
-  title   = {In-context Pseudocode},
-  author  = {Author Names},
-  journal = {Journal or Conference},
-  year    = {2026}
-}
+```text
+result/
+├── predictions
+├── evaluation_results
+└── logs
 ```
 
-The citation information will be updated after publication.
+The actual filenames and formats depend on the output logic implemented in the scripts.
 
-## Acknowledgements
+## Notes
 
-We thank the developers and maintainers of the open-source models, datasets, and libraries used in this project.
+- Run the scripts from the project root directory to avoid relative-path errors.
+- Check dataset and output paths before starting an experiment.
+- Ensure that generated code is evaluated in a controlled environment.
+- Different prompt templates may produce different code-generation results.
+- Keep prediction files and evaluation results from different experiments in separate directories.
+
+## License
+
+Please refer to the repository license for usage and distribution terms.
 
 ## Contact
 
-For questions or suggestions, please open an issue in this repository.
+For questions, bug reports, or suggestions, please open an issue in this repository.
