@@ -74,7 +74,7 @@ Execution pass rate
 
 ### 1. Clone the repository
 
-Download or clone the repository from the anonymized repository link provided with the submission.
+Download or clone the repository from the repository link provided with the submission.
 
 ### 2. Prepare the dataset
 
