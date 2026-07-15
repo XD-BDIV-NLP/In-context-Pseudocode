@@ -74,10 +74,7 @@ Execution pass rate
 
 ### 1. Clone the repository
 
-```bash
-git clone https://github.com/XD-BDIV-NLP/In-context-Pseudocode.git
-cd In-context-Pseudocode
-```
+Download or clone the repository from the anonymized repository link provided with the submission.
 
 ### 2. Prepare the dataset
 
