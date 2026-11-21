@@ -4,6 +4,7 @@ This repository contains the implementation of an in-context pseudocode promptin
 
 The project uses prompt templates to construct model inputs, generates code through an inference script, and evaluates the generated programs based on their execution pass rate.
 
+We evaluate 6 LLMs in the essay.
 ## Repository Structure
 
 ```text
